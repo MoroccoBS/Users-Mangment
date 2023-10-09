@@ -50,22 +50,6 @@ export default function Input({
           setValue(e.target.value);
         }}
       />
-
-      {type == "password" && (
-        <button
-          type="button"
-          className={`absolute top-1/2 right-0 -translate-x-1/2 translate-y-1/4 flex items-center justify-center`}
-          onClick={() => {
-            setPasswordVisible(!passwordVisible);
-          }}
-        >
-          {passwordVisible ? (
-            <EyeOff className="w-6 h-6" />
-          ) : (
-            <Eye className="w-6 h-6" />
-          )}
-        </button>
-      )}
     </div>
   );
 }

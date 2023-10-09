@@ -2,10 +2,18 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 export default function ThemeToggle() {
   const { theme, setTheme, systemTheme } = useTheme();
+  const handleTheme = useCallback(() => {
+    theme == "system"
+      ? setTheme(systemTheme as string)
+      : setTheme(theme as string);
+  }, [theme, systemTheme, setTheme]);
+  useEffect(() => {
+    handleTheme();
+  }, [handleTheme]);
   const handleThemeChange = () => {
     setTheme(theme == "light" ? "dark" : "light");
   };
@@ -31,45 +39,43 @@ export default function ThemeToggle() {
       className="p-6 rounded-full w-max outline outline-2 outline-foreground flex cursor-pointer"
       onClick={handleThemeChange}
     >
-      {theme == "light" ||
-        (systemTheme == "light" && (
-          <motion.div
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{
-              duration: 0.5,
-              type: "spring",
-              stiffness: 100,
-              damping: 10,
-              mass: 1,
-            }}
-            className="absolute m-auto"
-          >
-            <Sun className="w-full h-full" />
-          </motion.div>
-        ))}
+      {theme === "light" && (
+        <motion.div
+          variants={variants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{
+            duration: 0.5,
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+            mass: 1,
+          }}
+          className="absolute m-auto"
+        >
+          <Sun className="w-full h-full" />
+        </motion.div>
+      )}
 
-      {theme == "dark" ||
-        (systemTheme == "dark" && (
-          <motion.div
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{
-              duration: 0.5,
-              type: "spring",
-              stiffness: 100,
-              damping: 10,
-              mass: 1,
-            }}
-            className="absolute m-auto -translate-x-1/2 -translate-y-1/2"
-          >
-            <Moon className="w-full h-ful" />
-          </motion.div>
-        ))}
+      {theme == "dark" && (
+        <motion.div
+          variants={variants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{
+            duration: 0.5,
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+            mass: 1,
+          }}
+          className="absolute m-auto -translate-x-1/2 -translate-y-1/2"
+        >
+          <Moon className="w-full h-ful" />
+        </motion.div>
+      )}
     </div>
   );
 }

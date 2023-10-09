@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
-import { revalidatePath } from "next/cache";
 const initialErrorState = {
   emailError: "",
   passwordError: "",
